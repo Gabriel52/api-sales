@@ -8,5 +8,8 @@ coverage
 ormconfig.json
 dist
 
+yarn.lock.json
+package-lock.json
+
 uploads/*
 !uploads/.gitkeep
