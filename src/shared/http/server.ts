@@ -2,7 +2,8 @@ import 'reflect-metadata';
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 
-import AppError from '../errors/AppError';
+import AppError from '@shared/errors/AppError';
+import '../typeorm';
 
 import { routes } from './routes';
 
