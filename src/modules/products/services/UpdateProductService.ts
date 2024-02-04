@@ -25,13 +25,15 @@ class UpdateProductService {
       throw new AppError('Product not found');
     }
 
-    if (productAlreadyExists) {
+    if (productAlreadyExists && name !== product.name) {
       throw new AppError(`There is already one product with this name`);
     }
 
     product.name = name;
     product.price = price;
     product.quantity = quantity;
+
+    await productsRepository.save(product);
 
     return product;
   }
