@@ -10,7 +10,7 @@ class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('text', { nullable: false })
   name: string;
 
   @Column('decimal')
