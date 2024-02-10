@@ -2,6 +2,8 @@ import { getCustomRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
 import { User } from '../typeorm/entities/User';
 import { UserRepository } from '../typeorm/repositories/UsersRepository';
+import { hash } from 'bcryptjs';
+import { SALT } from '@shared/const';
 
 interface IRequest {
   name: string;
@@ -16,7 +18,13 @@ class CreateUserService {
     if (emailAlreadyExists) {
       throw new AppError(`Email address already exists`);
     }
-    const user = userRepository.create({ name, email, password });
+    const hashedPassword = await hash(password, SALT);
+
+    const user = userRepository.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
     await userRepository.save(user);
 
     return user;

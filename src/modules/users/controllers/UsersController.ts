@@ -1,10 +1,10 @@
-import { ListProductService } from '@modules/products/services/ListProductService';
 import { Request, Response } from 'express';
 import { CreateUserService } from '../services/CreateUserService';
+import { ListUserService } from '../services/ListUserService';
 
 class UsersController {
   public async index(_request: Request, response: Response): Promise<Response> {
-    const listUser = new ListProductService();
+    const listUser = new ListUserService();
 
     const users = await listUser.execute();
 
