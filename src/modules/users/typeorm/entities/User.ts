@@ -10,16 +10,16 @@ class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('text')
   name: string;
 
-  @Column()
+  @Column('text')
   email: string;
 
-  @Column()
+  @Column('text')
   password: string;
 
-  @Column()
+  @Column('text', { nullable: true })
   avatar: string;
 
   @CreateDateColumn()
