@@ -1,9 +1,11 @@
 import { getCustomRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
 import { User } from '../typeorm/entities/User';
+import authConfig from '@config/auth';
 import { UserRepository } from '../typeorm/repositories/UsersRepository';
-import { compare, hash } from 'bcryptjs';
-import { SALT } from '@shared/const';
+import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
+import { SECRET_HASH, TIME_TOKEN_VALIDATION } from '@shared/const';
 
 interface IRequest {
   password: string;
@@ -12,6 +14,7 @@ interface IRequest {
 
 interface IResponse {
   user: User;
+  token: string;
 }
 
 class CreateSessionsService {
@@ -27,8 +30,13 @@ class CreateSessionsService {
     if (!passwordConfirmed) {
       throw new AppError(`Incorrect validations`, 401);
     }
-
-    return { user };
+    const payload = {};
+    // have never put a sensible data in the payload
+    const token = sign(payload, authConfig.jwt.secret, {
+      subject: user.id,
+      expiresIn: authConfig.jwt.expiresIn,
+    });
+    return { user, token };
   }
 }
 
