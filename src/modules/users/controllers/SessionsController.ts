@@ -10,3 +10,5 @@ class SessionsController {
     return response.status(200).json({ user });
   }
 }
+
+export { SessionsController };
