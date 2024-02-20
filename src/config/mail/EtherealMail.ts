@@ -20,7 +20,7 @@ export interface ITemplateVariables {
 }
 
 interface IParseMailTemplate {
-  template: string;
+  file: string;
   variables: ITemplateVariables;
 }
 
