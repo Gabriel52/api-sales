@@ -23,12 +23,11 @@ class UpdateProfileService {
   }: IRequest): Promise<User> {
     const userRepository = getCustomRepository(UserRepository);
     const user = await userRepository.findById(user_id);
-
     if (!user) {
       throw new AppError('User not found');
     }
 
-    const userUpdateEmail = await userRepository.findById(email);
+    const userUpdateEmail = await userRepository.findByEmail(email);
 
     if (userUpdateEmail && userUpdateEmail.id !== user_id) {
       throw new AppError('There is already one user with this email');
@@ -46,7 +45,6 @@ class UpdateProfileService {
 
     user.name = name;
     user.email = email;
-
     await userRepository.save(user);
     return user;
   }
